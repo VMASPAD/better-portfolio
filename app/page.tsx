@@ -21,7 +21,7 @@ const FEATURES = [
   { icon: "◆",  title: "GitHub data only",    body: "Pulls name, bio, repos, followers, starred and location straight from the public GitHub API. No forms to fill." },
   { icon: "⬡",  title: "4 layout themes",     body: "Bento, Minimal, Vercel-style and Enterprise. Every theme ships with dark and light mode." },
   { icon: "🔗", title: "Shareable URL",        body: "Every portfolio lives at a permanent URL. Share it on your resume, LinkedIn or Twitter bio." },
-  { icon: "◎",  title: "Zero config",          body: "No accounts, no tokens, no YAML. Public GitHub data is all Gitfolio needs." },
+  { icon: "◎",  title: "Zero config",          body: "No accounts, no tokens, no YAML. Public GitHub data is all better-portfolio needs." },
   { icon: "⊡",  title: "Open source — MIT",   body: "Fork it, extend it, self-host it. Built by @vmaspad and open to contributions on GitHub." },
 ];
 
@@ -309,13 +309,13 @@ export default function Home() {
         style={{ background: "var(--background, #000)", borderColor: "var(--border, #252525)" }}
       >
         <div className="flex items-center gap-3">
-          <span className="text-sm font-bold uppercase tracking-tight">Gitfolio</span>
+          <span className="text-sm font-bold uppercase tracking-tight">better-portfolio</span>
           <Chip>Beta</Chip>
         </div>
         <div className="flex items-center gap-4">
           <PulseDot />
           <a
-            href="https://github.com/vmaspad/gitfolio"
+            href="https://github.com/vmaspad/better-portfolio"
             target="_blank"
             rel="noopener noreferrer"
             className="text-[9px] uppercase tracking-widest border px-3 py-1.5 transition-all duration-200 no-underline"
@@ -566,7 +566,7 @@ export default function Home() {
             >
               §02
             </span>
-            <h2 className="text-xl font-bold uppercase tracking-tight">Why Gitfolio</h2>
+            <h2 className="text-xl font-bold uppercase tracking-tight">Why better-portfolio</h2>
             <div className="flex-1 h-px" style={{ background: "var(--border, #252525)" }} />
           </div>
 
@@ -721,7 +721,7 @@ export default function Home() {
       <footer className="border-t" style={{ borderColor: "var(--border, #252525)" }}>
         <div className="max-w-5xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex items-center gap-4">
-            <span className="text-sm font-bold uppercase tracking-tight">Gitfolio</span>
+            <span className="text-sm font-bold uppercase tracking-tight">better-portfolio</span>
             <span
               className="text-[9px] uppercase tracking-widest"
               style={{ fontFamily: "var(--font-mono)", color: "var(--muted-fg, #555)" }}
@@ -735,7 +735,7 @@ export default function Home() {
             style={{ fontFamily: "var(--font-mono)", color: "var(--muted-fg, #555)" }}
           >
             <a
-              href="https://github.com/vmaspad/gitfolio"
+              href="https://github.com/vmaspad/better-portfolio"
               target="_blank"
               rel="noopener noreferrer"
               className="no-underline transition-colors duration-150 hover:text-primary"
@@ -746,7 +746,7 @@ export default function Home() {
               GitHub ↗
             </a>
             <a
-              href="https://github.com/vmaspad/gitfolio/blob/main/README.md"
+              href="https://github.com/vmaspad/better-portfolio/blob/main/README.md"
               target="_blank"
               rel="noopener noreferrer"
               className="no-underline transition-colors duration-150"

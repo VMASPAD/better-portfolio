@@ -21,7 +21,7 @@ const ibmPlexMono = IBM_Plex_Mono({
 
 /* ── Site-wide constants ──────────────────────────────────────────────────── */
 const SITE_URL  = "https://better-portfolio-nine.vercel.app/";
-const SITE_NAME = "Gitfolio";
+const SITE_NAME = "better-portfolio";
 const TAGLINE   = "Instant developer portfolios — powered by GitHub";
 const DESCRIPTION =
   "Generate a beautiful, shareable portfolio in seconds using only your GitHub username. " +
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
   /* ── Core ── */
   title: {
     default:  `${SITE_NAME} — ${TAGLINE}`,
-    template: `%s | ${SITE_NAME}`,   // used by child pages: "vmaspad — Gitfolio"
+    template: `%s | ${SITE_NAME}`,   // used by child pages: "vmaspad — better-portfolio"
   },
   description: DESCRIPTION,
   keywords: [
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     "github api portfolio",
     "portfolio from github",
     "auto-generated developer portfolio",
-    "gitfolio",
+    "better-portfolio",
   ],
   authors:  [{ name: SITE_NAME, url: SITE_URL }],
   creator:  SITE_NAME,
@@ -100,8 +100,8 @@ export const metadata: Metadata = {
   /* ── Twitter / X ── */
   twitter: {
     card:        "summary_large_image",
-    site:        "@gitfolio",          // change to your Twitter handle
-    creator:     "@gitfolio",
+    site:        "@better-portfolio",          // change to your Twitter handle
+    creator:     "@better-portfolio",
     title:       `${SITE_NAME} — ${TAGLINE}`,
     description: DESCRIPTION,
     images:      [OG_IMAGE],

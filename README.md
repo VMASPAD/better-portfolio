@@ -1,15 +1,15 @@
-# Gitfolio
+# better-portfolio
 
 > **Instant developer portfolios — powered by GitHub.**
 > Visit `/portfolio?user=vmaspad&type=bento` and get a beautiful, shareable portfolio in seconds — zero config, zero sign-up.
 
-![Gitfolio preview](./public/og-default.png)
+![better-portfolio preview](./public/og-default.png)
 
 ---
 
 ## What is this?
 
-Gitfolio turns any public GitHub profile into a polished, fully-themed portfolio page. You just pass a GitHub username and a layout type as URL parameters, and the app fetches the profile data directly from the GitHub API and renders it live.
+better-portfolio turns any public GitHub profile into a polished, fully-themed portfolio page. You just pass a GitHub username and a layout type as URL parameters, and the app fetches the profile data directly from the GitHub API and renders it live.
 
 No database. No accounts. No configuration files. If it's public on GitHub, it shows up here.
 
@@ -67,7 +67,7 @@ Bloomberg Terminal meets Linear. Zero border-radius, amber accent, live PDT cloc
 
 ## Data sourced from GitHub
 
-Gitfolio uses only the **public GitHub REST API** — no OAuth, no tokens required for basic usage.
+better-portfolio uses only the **public GitHub REST API** — no OAuth, no tokens required for basic usage.
 
 | GitHub API endpoint | Used for |
 |---|---|
@@ -126,8 +126,8 @@ Gitfolio uses only the **public GitHub REST API** — no OAuth, no tokens requir
 ### 1. Clone
 
 ```bash
-git clone https://github.com/vmaspad/gitfolio.git
-cd gitfolio
+git clone https://github.com/vmaspad/better-portfolio.git
+cd better-portfolio
 ```
 
 ### 2. Install
@@ -178,7 +178,7 @@ export async function generateMetadata({ searchParams }): Promise<Metadata> {
     title:       `${user.name ?? username} — Portfolio`,
     description: user.bio ?? `${username}'s developer portfolio generated from GitHub.`,
     openGraph: {
-      title:  `${user.name ?? username} on Gitfolio`,
+      title:  `${user.name ?? username} on better-portfolio`,
       images: [user.avatar_url],
     },
     twitter: {
