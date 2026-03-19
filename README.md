@@ -1,36 +1,250 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Gitfolio
 
-## Getting Started
+> **Instant developer portfolios — powered by GitHub.**
+> Visit `/portfolio?user=vmaspad&type=bento` and get a beautiful, shareable portfolio in seconds — zero config, zero sign-up.
 
-First, run the development server:
+![Gitfolio preview](./public/og-default.png)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## What is this?
+
+Gitfolio turns any public GitHub profile into a polished, fully-themed portfolio page. You just pass a GitHub username and a layout type as URL parameters, and the app fetches the profile data directly from the GitHub API and renders it live.
+
+No database. No accounts. No configuration files. If it's public on GitHub, it shows up here.
+
+---
+
+## Live demo
+
+```
+https://gitfolio.dev/portfolio?user=torvalds&type=bento
+https://gitfolio.dev/portfolio?user=gaearon&type=minimal
+https://gitfolio.dev/portfolio?user=sindresorhus&type=vercel
+https://gitfolio.dev/portfolio?user=tj&type=enterprise
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## URL parameters
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Parameter | Required | Values                                    | Default      |
+|-----------|----------|-------------------------------------------|--------------|
+| `user`    | ✅        | any valid GitHub username                 | —            |
+| `type`    | ❌        | `bento` · `minimal` · `vercel` · `enterprise` | `bento`  |
+| `theme`   | ❌        | `dark` · `light`                          | `dark`       |
 
-## Learn More
+### Examples
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+# Bento grid layout, dark mode (default)
+/portfolio?user=vmaspad
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Vercel-style minimal, light mode
+/portfolio?user=vmaspad&type=vercel&theme=light
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Enterprise terminal layout
+/portfolio?user=vmaspad&type=enterprise
+```
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Layouts
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### `bento` — Bento Grid
+Asymmetric grid of cards. Stats, skills, repos, followers and contact form arranged in a magazine-style layout. Uses `Chakra Petch` + `IBM Plex Mono`. Burnt orange accent in dark mode.
+
+### `minimal` — Claude / MagicUI Style
+Single-column, generous whitespace. Warm beige palette, Georgia serif headings. Inspired by [portfolio-magicui.vercel.app](https://portfolio-magicui.vercel.app).
+
+### `vercel` — Vercel Style
+Pure black background, Geist Mono throughout, hairline borders, no border-radius. Data tables for repos and followers. Dark/light toggle in topbar.
+
+### `enterprise` — Enterprise Terminal
+Bloomberg Terminal meets Linear. Zero border-radius, amber accent, live PDT clock, scanlines on hero. Repos rendered as sortable data tables.
+
+---
+
+## Data sourced from GitHub
+
+Gitfolio uses only the **public GitHub REST API** — no OAuth, no tokens required for basic usage.
+
+| GitHub API endpoint | Used for |
+|---|---|
+| `GET /users/:username` | Name, bio, location, company, followers, repos count |
+| `GET /users/:username/repos` | Public repositories list |
+| `GET /users/:username/followers` | Follower profiles |
+| `GET /users/:username/starred` | Starred repositories |
+| `GET /users/:username/subscriptions` | Watched repositories |
+
+> **Rate limits:** The unauthenticated GitHub API allows 60 requests/hour per IP. For production, add a `GITHUB_TOKEN` to your `.env` to raise this to 5,000 requests/hour.
+
+---
+
+## Tech stack
+
+- **Framework** — [Next.js 15](https://nextjs.org) (App Router)
+- **Styling** — [Tailwind CSS v4](https://tailwindcss.com) with CSS custom properties (oklch color tokens)
+- **Fonts** — `Chakra Petch`, `IBM Plex Mono`, `Geist Mono` via `next/font/google`
+- **Data** — GitHub REST API v3 (no SDK, plain `fetch`)
+- **Deployment** — [Vercel](https://vercel.com) (recommended)
+
+---
+
+## Project structure
+
+```
+.
+├── app/
+│   ├── layout.tsx              # Root layout — SEO metadata, fonts, JSON-LD
+│   ├── page.tsx                # Landing page / username input
+│   ├── portfolio/
+│   │   └── page.tsx            # Portfolio renderer — reads ?user= and ?type=
+│   └── globals.css             # Tailwind + CSS token definitions
+│
+├── components/
+│   ├── layouts/
+│   │   ├── BentoPortfolio.tsx
+│   │   ├── MinimalPortfolio.tsx
+│   │   ├── VercelPortfolio.tsx
+│   │   └── EnterprisePortfolio.tsx
+│   └── ui/                     # Shared atoms (Chip, Tag, StatusDot, etc.)
+│
+├── lib/
+│   └── github.ts               # GitHub API fetch helpers + types
+│
+└── public/
+    ├── og-default.png
+    ├── favicon.ico
+    └── site.webmanifest
+```
+
+---
+
+## Getting started
+
+### 1. Clone
+
+```bash
+git clone https://github.com/vmaspad/gitfolio.git
+cd gitfolio
+```
+
+### 2. Install
+
+```bash
+pnpm install
+# or npm install / yarn install
+```
+
+### 3. Environment variables
+
+Create a `.env.local` at the root:
+
+```env
+# Required — your public site URL (no trailing slash)
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+
+# Optional but recommended — raises GitHub API rate limit from 60 to 5,000 req/hr
+GITHUB_TOKEN=ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+# Optional — for Google Search Console verification (add to layout.tsx metadata)
+GOOGLE_SITE_VERIFICATION=xxxxxxxxxxxxxxxx
+```
+
+### 4. Run
+
+```bash
+pnpm dev
+```
+
+Open [http://localhost:3000/portfolio?user=YOUR_USERNAME&type=bento](http://localhost:3000/portfolio?user=torvalds&type=bento).
+
+---
+
+## GitHub API helper
+
+`lib/github.ts` exports typed fetch functions used by the portfolio page:
+
+```typescript
+import { getGithubUser, getGithubRepos, getGithubFollowers } from "@/lib/github";
+
+// In your page or server component:
+const user      = await getGithubUser("vmaspad");
+const repos     = await getGithubRepos("vmaspad");
+const followers = await getGithubFollowers("vmaspad");
+```
+
+Responses are cached via Next.js `fetch` with `revalidate: 3600` (1 hour).
+
+---
+
+## Per-page SEO (portfolio route)
+
+The `/portfolio/page.tsx` generates dynamic metadata for each user, so every shareable link gets its own OG image title and description:
+
+```typescript
+// app/portfolio/page.tsx
+export async function generateMetadata({ searchParams }): Promise<Metadata> {
+  const username = searchParams.user ?? "unknown";
+  const user     = await getGithubUser(username);
+
+  return {
+    title:       `${user.name ?? username} — Portfolio`,
+    description: user.bio ?? `${username}'s developer portfolio generated from GitHub.`,
+    openGraph: {
+      title:  `${user.name ?? username} on Gitfolio`,
+      images: [user.avatar_url],
+    },
+    twitter: {
+      card:   "summary",
+      images: [user.avatar_url],
+    },
+  };
+}
+```
+
+---
+
+## Deployment
+
+### Vercel (recommended)
+
+```bash
+pnpm dlx vercel
+```
+
+Set the environment variables in the Vercel dashboard under **Settings → Environment Variables**.
+
+### Docker
+
+```dockerfile
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY . .
+RUN npm ci && npm run build
+
+FROM node:20-alpine AS runner
+WORKDIR /app
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/public ./public
+EXPOSE 3000
+CMD ["node", "server.js"]
+```
+
+---
+
+## Contributing
+
+PRs are welcome. To add a new layout:
+
+1. Create `components/layouts/YourLayout.tsx` — must accept a `user` prop matching the GitHub API schema.
+2. Register the new `type` string in `app/portfolio/page.tsx`.
+3. Add an entry to the `LAYOUTS` constant and the README table above.
+4. Open a PR with a screenshot or screen recording.
+
+---
+
+## License
+
+MIT
