@@ -7,6 +7,8 @@ import GitHubPortfolioVercel from "./simple/page";
 import GitHubPortfolioSupabase from "./rapy/page";
 import GitHubPortfolioEnterprise from "./professional/page";
 import BentoPortfolio from "./bento/page";
+import PortfolioPage from "./volcano/page";
+import DisruptivePortfolio from "./disrup/page";
 
 function PortfolioContent() {
   const [user, setUser] = useState<Awaited<ReturnType<typeof getUserData>>>();
@@ -30,6 +32,11 @@ function PortfolioContent() {
     case "professional":
       return <GitHubPortfolioEnterprise user={user} />;
     case "bento":
+      return <BentoPortfolio user={user} />
+    case "volcano":
+      return <PortfolioPage user={user} />
+    case "disrup":
+      return <DisruptivePortfolio user={user} />
     default:
       return <BentoPortfolio user={user} />;
   }
