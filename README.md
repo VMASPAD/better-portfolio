@@ -18,10 +18,10 @@ No database. No accounts. No configuration files. If it's public on GitHub, it s
 ## Live demo
 
 ```
-https://gitfolio.dev/portfolio?user=torvalds&type=bento
-https://gitfolio.dev/portfolio?user=gaearon&type=minimal
-https://gitfolio.dev/portfolio?user=sindresorhus&type=vercel
-https://gitfolio.dev/portfolio?user=tj&type=enterprise
+https://better-portfolio-nine.vercel.app/portfolio?user=torvalds&type=bento
+https://better-portfolio-nine.vercel.app/portfolio?user=gaearon&type=minimal
+https://better-portfolio-nine.vercel.app/portfolio?user=sindresorhus&type=vercel
+https://better-portfolio-nine.vercel.app/portfolio?user=tj&type=enterprise
 ```
 
 ---
