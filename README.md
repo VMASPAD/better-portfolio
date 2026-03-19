@@ -137,22 +137,7 @@ pnpm install
 # or npm install / yarn install
 ```
 
-### 3. Environment variables
-
-Create a `.env.local` at the root:
-
-```env
-# Required — your public site URL (no trailing slash)
-NEXT_PUBLIC_SITE_URL=http://localhost:3000
-
-# Optional but recommended — raises GitHub API rate limit from 60 to 5,000 req/hr
-GITHUB_TOKEN=ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
-# Optional — for Google Search Console verification (add to layout.tsx metadata)
-GOOGLE_SITE_VERIFICATION=xxxxxxxxxxxxxxxx
-```
-
-### 4. Run
+### 3. Run
 
 ```bash
 pnpm dev
